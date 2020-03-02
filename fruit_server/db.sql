@@ -1,12 +1,7 @@
-SET
-  NAMES UTF8;
-
+SET NAMES UTF8;
 DROP DATABASE IF EXISTS `fruit`;
-
 CREATE DATABASE `fruit` CHARSET = UTF8;
-
 USE `fruit`;
-
 -- 管理员表
 CREATE TABLE `admin`(
   `aid` INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -56,10 +51,11 @@ INSERT INTO `fruit` VALUES(NULL,'海南三亚小台农芒果','kg','台芒','中
 -- ---------------------------------------------------------------------------------------------------
 
 -- 订单表
--- 编号 订单时间
+-- 编号 订单时间 完成订单时间
 CREATE TABLE `order`(
   `oid` INT(11) PRIMARY KEY AUTO_INCREMENT,
-  `otime` VARCHAR(32)
+  `otime` VARCHAR(32),
+  `o_complete_time` VARCHAR(32)
 );
 
 -- -----------------------------------------------------------------------------------------------------
