@@ -20,8 +20,8 @@ CREATE TABLE `emp`(
   `esex` INT(11) DEFAULT NULL,
   `eage` INT(11) DEFAULT NULL,
   `ephone` VARCHAR(16) DEFAULT NULL,
-  `work_time` VARCHAR(16) DEFAULT NULL,
-  `work_begin` VARCHAR(16) DEFAULT NULL
+  `ework_time` VARCHAR(16) DEFAULT NULL,
+  `ework_begin` VARCHAR(16) DEFAULT NULL
 );
 
 INSERT INTO `emp` VALUES(NULL, 'xiaoxiong','123456',1,24,'18372687269','0104','2018-10-10');

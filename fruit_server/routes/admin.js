@@ -27,9 +27,36 @@ router.get("/login", (req, res) => {
     }
   });
 });
-/* 修改管理员密码 session */
-router.post("/update", (req, res) => {
-  // let {};
+/* 修改管理员密码 */
+/* router.post("/update", (req, res) => {
+  let { aid, aname, apwd } = req.body;
+  console.log(aid, aname, apwd);
+  if (!apwd) {
+    res.send({ code: 202, msg: "请输入密码", data: [] });
+    return;
+  }
+  let sql1 = "select aid,aname,apwd from admin where aid=?";
+  let sql2 = "update  admin set aname=? and apwd=? where aid=?";
+  pool.query(sql1, [aid], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      if (apwd == result[0].apwd) {
+        res.send({ code: 201, msg: "与旧密码相同", data: [] });
+        return;
+      } else {
+        pool.query(sql2, [aname, apwd, aid], (err, result) => {
+          if (err) throw err;
+          if (result.affectedRows > 0) {
+            res.send({ code: 200, msg: "修改成功", data: [] });
+          } else {
+            res.send({ code: 202, msg: "修改错误", data: [] });
+          }
+        });
+      }
+    } else {
+      res.send({ code: 202, msg: "操作错误", data: [] });
+    }
+  });
 });
-
+ */
 module.exports = router;

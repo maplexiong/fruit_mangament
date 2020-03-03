@@ -11,8 +11,8 @@ Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "http://127.0.0.1:6060";
-// axios.defaults.baseURL = "http://timo123.top:6060";
+// axios.defaults.baseURL = "http://127.0.0.1:6060";
+axios.defaults.baseURL = "http://106.53.50.157:6060";
 axios.defaults.withCredentials = true;
 Vue.prototype.axios = axios;
 

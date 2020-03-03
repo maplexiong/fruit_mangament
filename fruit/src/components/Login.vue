@@ -31,7 +31,9 @@ export default {
         .get(`/admin/login`, { params: { aname, apwd } })
         .then(res => {
           console.log(res);
+          console.log(res.data.sessionID);
           if (res.data.code === 200) {
+            window.sessionStorage.setItem("cookie", 1);
             this.$message({
               type: "success",
               message: "登录成功",
