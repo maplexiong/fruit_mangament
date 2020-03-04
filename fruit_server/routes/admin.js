@@ -9,15 +9,20 @@ router.get("/login", (req, res) => {
   pool.query(sql, [aname, apwd], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      req.session.id = result[0].aid;
-      console.log(req.session);
+      // console.log(req.session);
+      req.session.user = 1;
+      console.log(req.sessionID);
+      console.log(req.session.id);
+      // req.session.id = result[0].aid;
+      // console.log(req.session);
       res.send({
         code: 200,
         msg: "登录成功",
-        sessionID: req.session.id,
+        // sessionID: req.session.id,
         data: result[0]
       });
     } else {
+      // console.log(req.sessionID);
       res.send({
         code: 201,
         msg: "登录错误",

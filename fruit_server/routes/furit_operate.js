@@ -1,8 +1,34 @@
 const express = require("express");
 const pool = require("../db/pool");
 let router = express.Router();
+/* 
+function isLogin() {
+  if (!req.session.roleID) {
+    res.send({ code: 0, msg: "请登录!" });
+    return;
+  }
+}
+
+function isAdminLogin() {
+  if (req.session.roleID != "admin") {
+    res.send({ code: 0, msg: "您没有权限!" });
+    return;
+  }
+}
+function isGeneralLogin() {
+  if (req.session.roleID != "general") {
+    res.send({ code: 0, msg: "您没有权限!" });
+    return;
+  }
+}
+
+ */
 
 router.get("/all", (req, res) => {
+  if (!req.session.roleID) {
+    res.send({ code: 0, msg: "请登录!" });
+    return;
+  }
   let sql = "select * from fruit";
   pool.query(sql, (err, result) => {
     if (err) throw err;
@@ -13,6 +39,10 @@ router.get("/all", (req, res) => {
 });
 
 router.get("/cell", (req, res) => {
+  if (!req.session.roleID) {
+    res.send({ code: 0, msg: "请登录!" });
+    return;
+  }
   let { fid } = req.query;
   let sql = "select * from fruit where fid=?";
   pool.query(sql, [fid], (err, result) => {
@@ -26,6 +56,10 @@ router.get("/cell", (req, res) => {
 });
 
 router.get("/list", (req, res) => {
+  if (!req.session.roleID) {
+    res.send({ code: 0, msg: "请登录!" });
+    return;
+  }
   let { pageNum, pageCount } = req.query;
   if (!pageNum) pageNum = 1;
   if (!pageCount) pageCount = 6;
@@ -40,6 +74,14 @@ router.get("/list", (req, res) => {
 
 /* update info */
 router.post("/update", (req, res) => {
+  if (!req.session.roleID) {
+    res.send({ code: 0, msg: "请登录!" });
+    return;
+  }
+  if (req.session.roleID != "admin") {
+    res.send({ code: 0, msg: "您没有权限!" });
+    return;
+  }
   let {
     fid,
     fname,
@@ -93,6 +135,14 @@ router.post("/update", (req, res) => {
 /* add furit info */
 
 router.post("/add", (req, res) => {
+  if (!req.session.roleID) {
+    res.send({ code: 0, msg: "请登录!" });
+    return;
+  }
+  if (req.session.roleID != "admin") {
+    res.send({ code: 0, msg: "您没有权限!" });
+    return;
+  }
   let {
     fname,
     funit,
@@ -131,8 +181,18 @@ router.post("/add", (req, res) => {
   );
 });
 
-router.post("/del", (req, res) => {
-  let { fid } = req.body;
+// router.post("/del", (req, res) => {
+router.get("/del", (req, res) => {
+  if (!req.session.roleID) {
+    res.send({ code: 0, msg: "请登录!" });
+    return;
+  }
+  if (req.session.roleID != "admin") {
+    res.send({ code: 0, msg: "您没有权限!" });
+    return;
+  }
+  // let { fid } = req.body;
+  let { fid } = req.query;
   let sql = "delete from fruit where fid=?";
   pool.query(sql, [fid], (err, result) => {
     if (err) throw err;
