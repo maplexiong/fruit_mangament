@@ -181,8 +181,8 @@ router.post("/add", (req, res) => {
   );
 });
 
-// router.post("/del", (req, res) => {
-router.get("/del", (req, res) => {
+router.post("/del", (req, res) => {
+  // router.get("/del", (req, res) => {
   if (!req.session.roleID) {
     res.send({ code: 0, msg: "请登录!" });
     return;
@@ -191,8 +191,8 @@ router.get("/del", (req, res) => {
     res.send({ code: 0, msg: "您没有权限!" });
     return;
   }
-  // let { fid } = req.body;
-  let { fid } = req.query;
+  let { fid } = req.body;
+  // let { fid } = req.query;
   let sql = "delete from fruit where fid=?";
   pool.query(sql, [fid], (err, result) => {
     if (err) throw err;
