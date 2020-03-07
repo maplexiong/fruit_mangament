@@ -18,8 +18,8 @@ CREATE TABLE `user`(
 );
 
 INSERT INTO `user` VALUES(NULL,'admin','admin','admin',DEFAULT,35,18372687269,10,'2010-1-1');
-INSERT INTO `user` VALUES(NULL,'abcef','123456',DEFAULT,0,30,17612341234,3.1,'2015-1-1');
-INSERT INTO `user` VALUES(NULL,'xiaoxiong','123456','general',1,30,18945676789,2,'2017-3-1');
+INSERT INTO `user` VALUES(NULL,'abc','123456','admin',0,30,17612341234,3.1,'2015-1-1');
+INSERT INTO `user` VALUES(NULL,'xiaoxiong','123456',DEFAULT,1,30,18945676789,2,'2017-3-1');
 INSERT INTO `user` VALUES(NULL,'xiaozhou','123456','general',0,27,17624563286,3,'2016-5-3');
 INSERT INTO `user` VALUES(NULL,'xiaoluo','123456','general',0,26,16724563286,3,'2016-5-3');
 INSERT INTO `user` VALUES(NULL,'xiaochen','123456','general',1,36,17824563286,3,'2016-5-3');
@@ -72,6 +72,22 @@ CREATE TABLE `fruit`(
   -- `fdesc` VARCHAR(255) DEFAULT '无'
 );
 
+INSERT INTO `fruit` VALUES(NULL,'江西橙子赣南脐橙','kg','脐橙','中国江西',500,2.5,5,1);
+INSERT INTO `fruit` VALUES(NULL,'海南三亚小台农芒果','kg','台芒','中国海南',300,4.8,9,1);
+INSERT INTO `fruit` VALUES(NULL,'山东大樱桃大连车厘子','kg','车厘子','中国广西',320,4.8,12,1);
+INSERT INTO `fruit` VALUES(NULL,'甘肃天水精品花牛苹果','kg','苹果','中国甘肃',320,5,10,1);
+INSERT INTO `fruit` VALUES(NULL,'江西橙子赣南脐橙','kg','脐橙','中国江西',500,2.5,5,1);
+INSERT INTO `fruit` VALUES(NULL,'海南三亚小台农芒果','kg','台芒','中国海南',300,4.8,9,1);
+INSERT INTO `fruit` VALUES(NULL,'山东大樱桃大连车厘子','kg','车厘子','中国广西',320,4.8,12,1);
+INSERT INTO `fruit` VALUES(NULL,'甘肃天水精品花牛苹果','kg','苹果','中国甘肃',320,5,10,1);
+INSERT INTO `fruit` VALUES(NULL,'江西橙子赣南脐橙','kg','脐橙','中国江西',500,2.5,5,1);
+INSERT INTO `fruit` VALUES(NULL,'海南三亚小台农芒果','kg','台芒','中国海南',300,4.8,9,1);
+INSERT INTO `fruit` VALUES(NULL,'山东大樱桃大连车厘子','kg','车厘子','中国广西',320,4.8,12,1);
+INSERT INTO `fruit` VALUES(NULL,'甘肃天水精品花牛苹果','kg','苹果','中国甘肃',320,5,10,1);
+INSERT INTO `fruit` VALUES(NULL,'江西橙子赣南脐橙','kg','脐橙','中国江西',500,2.5,5,1);
+INSERT INTO `fruit` VALUES(NULL,'海南三亚小台农芒果','kg','台芒','中国海南',300,4.8,9,1);
+INSERT INTO `fruit` VALUES(NULL,'山东大樱桃大连车厘子','kg','车厘子','中国广西',320,4.8,12,1);
+INSERT INTO `fruit` VALUES(NULL,'甘肃天水精品花牛苹果','kg','苹果','中国甘肃',320,5,10,1);
 INSERT INTO `fruit` VALUES(NULL,'江西橙子赣南脐橙','kg','脐橙','中国江西',500,2.5,5,1);
 INSERT INTO `fruit` VALUES(NULL,'海南三亚小台农芒果','kg','台芒','中国海南',300,4.8,9,1);
 INSERT INTO `fruit` VALUES(NULL,'山东大樱桃大连车厘子','kg','车厘子','中国广西',320,4.8,12,1);

@@ -4,10 +4,22 @@ import Vue from "vue";
 import App from "./App";
 import router from "./router";
 import axios from "axios";
+
+import "./assets/css/comm.css";
 //element模块引入
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
+
+router.beforeEach((to, from, next) => {
+  let result = sessionStorage.getItem("user");
+  result = JSON.parse(result);
+  if (to.path == "/login" || result) {
+    next();
+  } else {
+    next("/login");
+  }
+});
 
 Vue.config.productionTip = false;
 

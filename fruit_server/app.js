@@ -29,7 +29,7 @@ app.use(
 app.use(
   session({
     secret: "随机字符串",
-    cookie: { maxAge: 1000 * 60 * 30 }, //过期时间ms 30分钟
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 }, //过期时间7天
     name: "mycookie",
     resave: true,
     saveUninitialized: true

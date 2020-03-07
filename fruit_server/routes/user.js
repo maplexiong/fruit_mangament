@@ -3,10 +3,10 @@ const pool = require("../db/pool");
 let router = express.Router();
 
 // router.post("/login", (req, res) => {
-router.get("/login", (req, res) => {
-  // let { uname, upwd } = req.body;
-  let { uname, upwd } = req.query;
-  let sql = "select uid,role from user where uname=? and upwd=?";
+router.post("/login", (req, res) => {
+  let { uname, upwd } = req.body;
+  // let { uname, upwd } = req.query;
+  let sql = "select uid,uname,role from user where uname=? and upwd=?";
   pool.query(sql, [uname, upwd], (err, result) => {
     if (err) throw err;
     if (result.length <= 0) {
