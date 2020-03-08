@@ -9,7 +9,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  created() {
+    let cookie = document.cookie.indexOf("mycookie");
+    console.log(cookie);
+  }
+};
 </script>
 
 <style></style>

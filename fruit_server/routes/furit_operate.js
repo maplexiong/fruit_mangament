@@ -1,28 +1,6 @@
 const express = require("express");
 const pool = require("../db/pool");
 let router = express.Router();
-/* 
-function isLogin() {
-  if (!req.session.roleID) {
-    res.send({ code: 0, msg: "请登录!" });
-    return;
-  }
-}
-
-function isAdminLogin() {
-  if (req.session.roleID != "admin") {
-    res.send({ code: 0, msg: "您没有权限!" });
-    return;
-  }
-}
-function isGeneralLogin() {
-  if (req.session.roleID != "general") {
-    res.send({ code: 0, msg: "您没有权限!" });
-    return;
-  }
-}
-
- */
 
 router.get("/all", (req, res) => {
   if (!req.session.roleID) {
@@ -30,10 +8,26 @@ router.get("/all", (req, res) => {
     return;
   }
   let sql = "select * from fruit";
-  pool.query(sql, (err, result) => {
+  let sql_two = "select count(fid) from fruit";
+  pool.query(sql_two, (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      res.send({ code: 200, msg: "查询信息成功", data: result });
+      let dataCount = result[0]["count(fid)"];
+      pool.query(sql, (err, result) => {
+        if (err) throw err;
+        if (result.length > 0) {
+          res.send({
+            code: 200,
+            msg: "查询信息成功",
+            dataCount: dataCount,
+            data: result
+          });
+        } else {
+          res.send({ code: 201, msg: "查询信息失败", dataCount: 0, data: [] });
+        }
+      });
+    } else {
+      res.send({ code: 201, msg: "查询信息失败", dataCount: 0, data: [] });
     }
   });
 });
@@ -66,9 +60,27 @@ router.get("/list", (req, res) => {
   let start = (pageNum - 1) * pageCount;
   pageCount = parseInt(pageCount);
   let sql = "select * from fruit limit ?,?";
-  pool.query(sql, [start, pageCount], (err, result) => {
+  let sql_two = "select count(fid) from fruit";
+  pool.query(sql_two, (err, result) => {
     if (err) throw err;
-    res.send({ code: 200, msg: "查询信息成功", data: result });
+    if (result.length > 0) {
+      let dataCount = result[0]["count(fid)"];
+      pool.query(sql, [start, pageCount], (err, result) => {
+        if (err) throw err;
+        if (result.length > 0) {
+          res.send({
+            code: 200,
+            msg: "查询信息成功",
+            dataCount: dataCount,
+            data: result
+          });
+        } else {
+          res.send({ code: 201, msg: "查询信息失败", dataCount: 0, data: [] });
+        }
+      });
+    } else {
+      res.send({ code: 201, msg: "查询信息失败", dataCount: 0, data: [] });
+    }
   });
 });
 
@@ -124,9 +136,9 @@ router.post("/update", (req, res) => {
     (err, result) => {
       if (err) throw err;
       if (result.affectedRows > 0) {
-        res.send({ code: 200, msg: "修改信息成功", data: [] });
+        res.send({ code: 200, msg: "修改信息成功" });
       } else {
-        res.send({ code: 201, msg: "修改信息失败", data: [] });
+        res.send({ code: 201, msg: "修改信息失败" });
       }
     }
   );
@@ -173,9 +185,9 @@ router.post("/add", (req, res) => {
     (err, result) => {
       if (err) throw err;
       if (result.affectedRows > 0) {
-        res.send({ code: 200, msg: "新增信息成功", data: [] });
+        res.send({ code: 200, msg: "新增信息成功" });
       } else {
-        res.send({ code: 201, msg: "新增信息失败", data: [] });
+        res.send({ code: 201, msg: "新增信息失败" });
       }
     }
   );
@@ -197,9 +209,9 @@ router.post("/del", (req, res) => {
   pool.query(sql, [fid], (err, result) => {
     if (err) throw err;
     if (result.affectedRows > 0) {
-      res.send({ code: 200, msg: "删除信息成功", data: [] });
+      res.send({ code: 200, msg: "删除信息成功" });
     } else {
-      res.send({ code: 201, msg: "删除信息失败", data: [] });
+      res.send({ code: 201, msg: "删除信息失败" });
     }
   });
 });
