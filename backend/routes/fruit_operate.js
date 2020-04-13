@@ -26,7 +26,7 @@ router.get("/all", (req, res, next) => {
         code: 200,
         msg: "search success",
         totalCount: totalCount,
-        data: result
+        data: result,
       });
     });
   });
@@ -50,6 +50,44 @@ router.get("/cell", (req, res, next) => {
       res.send({ code: 200, msg: "search success", data: result[0] });
     } else {
       res.send({ code: 402, msg: "fid null", data: {} });
+    }
+  });
+});
+
+//-----------------------------------------------------------------------------------
+
+router.get("/checkForSale", (req, res, next) => {
+  let fid = req.query.fid;
+  if (!fid) {
+    res.send({ code: 401, msg: "fid required", data: {} });
+    return;
+  }
+  let needCount = req.query.needCount;
+  if (!needCount) {
+    res.send({ code: 402, msg: "needCount required", data: {} });
+    return;
+  }
+  let sql = "select fid,fname,funit,fcount,f_sale_price from fruit where fid=?";
+  pool.query(sql, [fid], (err, result) => {
+    if (err) {
+      next(err);
+      return;
+    }
+    if (result.length > 0 && result[0].fcount > needCount) {
+      res.send({
+        code: 200,
+        msg: "search success",
+        data: {
+          fid: result[0].fid,
+          fname: result[0].fname,
+          funit: result[0].funit,
+          f_sale_price: result[0].f_sale_price,
+        },
+      });
+    } else if (result.length > 0 && result[0].fcount < needCount) {
+      res.send({ code: 201, msg: "Too much demand", data: {} });
+    } else {
+      res.send({ code: 403, msg: "fid null", data: {} });
     }
   });
 });
@@ -95,7 +133,7 @@ router.get("/list", (req, res, next) => {
         pageSize: pageSize,
         totalCount: totalCount,
         pageCount: Math.ceil(totalCount / pageSize),
-        data: result
+        data: result,
       });
     });
   });
@@ -116,7 +154,7 @@ router.post("/add", (req, res, next) => {
     fcount,
     fprice,
     f_sale_price,
-    f_is_sale
+    f_is_sale,
   } = req.body;
 
   if (
@@ -204,7 +242,7 @@ router.post("/del", (req, res, next) => {
       res.send({
         code: 200,
         msg: "del success",
-        delUserId: req.session.user.uid
+        delUserId: req.session.user.uid,
       });
     } else {
       res.send({ code: 400, msg: "del fail" });

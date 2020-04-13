@@ -1,14 +1,15 @@
-## 项目初始化
+## 后台Server
 
-- \$ npm install -g express-generator
-
-- \$ express -e fruit_backend
+```js
+$ npm i
+$ node start
+```
 
 ### 接口文档
 
 #### 基础 URL:
 
-- `http://105.53.50.157:6060`
+- `http://127.0.0.1:6060`
 
 #### 用户操作
 
@@ -24,6 +25,7 @@
   | ----- | ------ | ------ | -------- | ---- |
   | uname | 用户名 | string | 是       | 无   |
   | upwd  | 密码   | string | 是       | 无   |
+  |       |        |        |          |      |
 
 * 返回参数:
 

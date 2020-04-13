@@ -30,7 +30,7 @@ CREATE TABLE `user`(
   `phone` CHAR(11) DEFAULT NULL COMMENT '手机号',
   `work_time` DECIMAL(3,1) DEFAULT 0 COMMENT '工龄(年)',
   `work_begin` VARCHAR(16) DEFAULT '2020-02-02' COMMENT '入职时间',
-  `state` BOOLEAN DEFAULT 0 COMMENT '用户状态0停用1启用'
+  `state` TINYINT DEFAULT 0 COMMENT '用户状态0停用1启用'
 );
 
 INSERT INTO `user` VALUES
@@ -72,7 +72,7 @@ CREATE TABLE `role_menu`(
   `rmid` INT PRIMARY KEY AUTO_INCREMENT,
   `role` VARCHAR(32) COMMENT '角色',
   `path_name` VARCHAR(32) COMMENT '跳转路径',
-  `isEnable` BOOLEAN DEFAULT 1 COMMENT '是否启用组件'
+  `isEnable` TINYINT DEFAULT 1 COMMENT '组件状态1启用0禁用'
 );
 
 -- admin  --> UserList | AuthorityInformation | ProductList | FullInformation | OrderList | SaleInformation | PurchaseInformation
@@ -91,6 +91,7 @@ INSERT INTO `role_menu` VALUES
   (NULL,'teamLeader','UserList',DEFAULT),
   (NULL,'teamLeader','ProductList',DEFAULT),
   (NULL,'teamLeader','OrderList',DEFAULT),
+  (NULL,'teamLeader','FullInformation',DEFAULT),
   (NULL,'teamLeader','SaleInformation',DEFAULT);
 
 -- --------------------------------------------------------------------------------------------------
@@ -106,7 +107,7 @@ CREATE TABLE `fruit`(
   `fcount` DECIMAL(6,2) DEFAULT NULL COMMENT '数量',
   `fprice` DECIMAL(6,2) DEFAULT NULL COMMENT '进价',
   `f_sale_price` DECIMAL(6,2) DEFAULT NULL COMMENT '售价',
-  `f_is_sale` BOOLEAN DEFAULT 0 COMMENT '是否在售'
+  `f_is_sale` TINYINT DEFAULT 0 COMMENT '是否在售0未售1在售'
   -- `fdesc` VARCHAR(255) DEFAULT '无' COMMENT '描述'
 );
 
@@ -181,40 +182,28 @@ INSERT INTO `fruit` VALUES
 -- 订单表
 
 CREATE TABLE `order`(
-  `oid` INT(11) PRIMARY KEY AUTO_INCREMENT,
-  `order_number` CHAR(13) NOT NULL COMMENT '订单号',
+  `orderId` VARCHAR(32) PRIMARY KEY NOT NULL COMMENT '订单编号',
   `order_principal` VARCHAR(32) NOT NULL COMMENT '负责人',
+  `order_number`INT NOT NULL COMMENT '商品数量',
   `order_amount` DECIMAL(7,2) NOT NULL COMMENT '金额',
-  `order_date` VARCHAR(32) NOT NULL COMMENT '完成订单日期',
+  `order_date` VARCHAR(32) NOT NULL COMMENT '产生订单日期',
   `order_state` BOOLEAN DEFAULT 0 COMMENT '状态1完成0未完成'
 );
 
-INSERT INTO `order` VALUES
-  (NULL,'1583716094151','xiaoxiong',56.3,'2020-3-9',1),
-  (NULL,'1583716094156','xiaozhou',76.3,'2020-3-9',1),
-  (NULL,'1583716094157','dingding',52.6,'2020-3-9',1),
-  (NULL,'1583716094166','xiaoxiong',21.5,'2020-3-9',1),
-  (NULL,'1583716094200','xiaoxiong',16.7,'2020-3-9',1),
-  (NULL,'1583716094500','xiaoxiong',43.1,'2020-3-9',1),
-  (NULL,'1583716094600','xiaoxiong',12.8,'2020-3-9',1),
-  (NULL,'1583716094700','xiaoxiong',15.7,'2020-3-9',1),
-  (NULL,'1583716094800','xiaoxiong',89.7,'2020-3-9',1),
-  (NULL,'1583716094880','xiaoxiong',40.1,'2020-3-9',1),
-  (NULL,'1583716094890','xiaoxiong',45.2,'2020-3-9',1),
-  (NULL,'1583716094989','xiaoxiong',15.6,'2020-3-9',1);
-
 -- -----------------------------------------------------------------------------------------------------
-
 
 -- 订单详情表(产生订单)
 
 CREATE TABLE `order_detail`(
   `od_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `orderId` VARCHAR(32) NOT NULL COMMENT '订单编号',
   `od_fid` INT NOT NULL COMMENT '水果编号',
+  `od_fruit_name` VARCHAR(32) NOT NULL COMMENT '水果名',
   `od_fruit_unit` VARCHAR(32) NOT NULL COMMENT '水果单位',
   `od_fruit_count` DECIMAL(6,2) NOT NULL COMMENT '水果数量',
   `od_fruit_sale_price` DECIMAL(6,2) NOT NULL COMMENT '水果售价',
-  `od_date` VARCHAR(32) NOT NULL COMMENT '订单产生日期'
+  `od_date` VARCHAR(32) NOT NULL COMMENT '订单产生日期',
+  FOREIGN KEY(`orderId`) REFERENCES `order`(`orderId`)
 );
 
 -- -----------------------------------------------------------------------------------------------------

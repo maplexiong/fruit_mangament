@@ -43,7 +43,7 @@ router.post("/login", (req, res, next) => {
       res.send({
         code: 200,
         msg: "login success",
-        data: req.session.user
+        data: req.session.user,
       });
     }
   });
@@ -64,7 +64,6 @@ router.post("/update/passwd", (req, res, next) => {
     res.send({ code: 499, msg: "login required" });
     return;
   }
-  // let uid = req.body.uid;
   let uid = req.session.user.uid;
   if (!uid) {
     res.send({ code: 401, msg: "uid required" });
@@ -131,6 +130,7 @@ router.post("/update", (req, res, next) => {
     }
   });
 });
+
 //--------------------------------------------------------------------------
 
 router.post("/reg", (req, res, next) => {
@@ -203,7 +203,7 @@ router.get("/all", (req, res) => {
         code: 200,
         msg: "search success",
         totalCount: totalCount,
-        data: result
+        data: result,
       });
     });
   });
@@ -333,7 +333,7 @@ router.get("/list", (req, res, next) => {
         pageSize: pageSize,
         totalCount: totalCount,
         pageCount: Math.ceil(totalCount / pageSize),
-        data: result
+        data: result,
       });
     });
   });
